@@ -1,0 +1,123 @@
+@startuml
+
+entity "carrello" {
+  + id bigint
+  --
+  id_prodotto integer
+  id_user integer
+  quantita integer
+  prezzo numeric(8,2)
+  created_at timestamp(0)
+  updated_at timestamp(0)
+}
+
+entity "failed_jobs" {
+  + id bigint
+  --
+  uuid character varying(255)
+  connection text
+  queue text
+  payload text
+  exception text
+  failed_at timestamp(0)
+}
+
+entity "migrations" {
+  + id integer
+  --
+  migration character varying(255)
+  batch integer
+}
+
+entity "password_reset_tokens" {
+  email character varying(255)
+  token character varying(255)
+  created_at timestamp(0)
+  --
+  PRIMARY KEY (email)
+}
+
+entity "personal_access_tokens" {
+  + id bigint
+  --
+  tokenable_type character varying(255)
+  tokenable_id bigint
+  name character varying(255)
+  token character varying(64)
+  abilities text
+  last_used_at timestamp(0)
+  expires_at timestamp(0)
+  created_at timestamp(0)
+  updated_at timestamp(0)
+  --
+  PRIMARY KEY (id)
+}
+
+entity "prodotti" {
+  + id integer
+  --
+  nome character varying(500)
+  riferimento character varying(500)
+  categoria character varying(50)
+  prezzo_tax_escl numeric(8,2)
+  prezzo_tax_incl numeric(8,2)
+  quantita integer
+  stato boolean
+  immagine character varying(500)
+  riepilogo text
+  carta_identita character varying(50)
+  chi_sono text
+  luogo_di_nascita character varying(500)
+  formazione text
+  carattere_e_stile text
+  gourmet character varying(100)
+  musica character varying(100)
+  cinema character varying(100)
+  annata integer
+  premi character varying(100)
+  created_at timestamp(0)
+  updated_at timestamp(0)
+  --
+  PRIMARY KEY (id)
+}
+
+entity "rivenditori" {
+  + id bigint
+  --
+  p_iva integer
+  nome_aziendale character varying(255)
+  PEC character varying(255)
+  SDI integer
+  password character varying(255)
+  telefono integer
+  indirizzo_fattura character varying(255)
+  indirizzo_spedizione character varying(255)
+  remember_token character varying(100)
+  created_at timestamp(0)
+  updated_at timestamp(0)
+  --
+  PRIMARY KEY (id)
+}
+
+entity "users" {
+  + id bigint
+  --
+  nome character varying(255)
+  cognome character varying(255)
+  email character varying(255)
+  password character varying(255)
+  telefono integer
+  indirizzo_fattura character varying(255)
+  indirizzo_spedizione character varying(255)
+  api_token character varying(80)
+  remember_token character varying(100)
+  created_at timestamp(0)
+  updated_at timestamp(0)
+  --
+  PRIMARY KEY (id)
+}
+
+carrello ||--|| prodotti : id_prodotto
+users ||--o carrello : id_user
+
+@enduml
